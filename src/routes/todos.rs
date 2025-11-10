@@ -16,17 +16,17 @@ pub struct Todo {
 }
 
 #[derive(Template)]
-#[template(path = "todos/item.html")]
+#[template(path = "modules/todos/item.html")]
 pub struct TodoItemTemplate {
     pub todo: Todo,
 }
 
 #[derive(Template)]
-#[template(path = "todos/create_form.html")]
+#[template(path = "modules/todos/create_form.html")]
 pub struct CreateFormTemplate;
 
 #[derive(Template)]
-#[template(path = "todos/stats.html")]
+#[template(path = "modules/todos/stats.html")]
 pub struct TodoStatsTemplate {
     pub total_count: usize,
     pub completed_count: usize,

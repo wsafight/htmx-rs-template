@@ -13,14 +13,14 @@ pub struct User {
 }
 
 #[derive(Template)]
-#[template(path = "users/search_results.html")]
+#[template(path = "modules/users/search_results.html")]
 pub struct UserSearchResultsTemplate {
     pub users: Vec<User>,
     pub query: String,
 }
 
 #[derive(Template)]
-#[template(path = "users/detail.html")]
+#[template(path = "modules/users/detail.html")]
 pub struct UserDetailTemplate {
     pub user: User,
 }

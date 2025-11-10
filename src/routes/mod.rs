@@ -9,31 +9,12 @@ use sqlx::SqlitePool;
 
 // 完整页面模板（首次加载）
 #[derive(Template)]
-#[template(path = "index.html")]
+#[template(path = "modules/home/index.html")]
 pub struct IndexTemplate;
-
-// SPA 页面内容片段（不包含 base.html）
-#[derive(Template)]
-#[template(path = "pages/home.html")]
-pub struct HomePageTemplate;
-
-#[derive(Template)]
-#[template(path = "pages/todos.html")]
-pub struct TodosPageTemplate {
-    pub todos: Vec<todos::Todo>,
-    pub completed_count: usize,
-    pub pending_count: usize,
-}
-
-#[derive(Template)]
-#[template(path = "pages/users.html")]
-pub struct UsersPageTemplate {
-    pub users: Vec<users::User>,
-}
 
 // 完整页面模板（包含 base.html，用于直接访问）
 #[derive(Template)]
-#[template(path = "todos_full.html")]
+#[template(path = "modules/todos/index.html")]
 pub struct TodosFullPageTemplate {
     pub todos: Vec<todos::Todo>,
     pub completed_count: usize,
@@ -41,10 +22,31 @@ pub struct TodosFullPageTemplate {
 }
 
 #[derive(Template)]
-#[template(path = "users_full.html")]
+#[template(path = "modules/users/index.html")]
 pub struct UsersFullPageTemplate {
     pub users: Vec<users::User>,
 }
+
+
+// SPA 页面内容片段（不包含 base.html）
+#[derive(Template)]
+#[template(path = "modules/home/main.html")]
+pub struct HomePageTemplate;
+
+#[derive(Template)]
+#[template(path = "modules/todos/main.html")]
+pub struct TodosPageTemplate {
+    pub todos: Vec<todos::Todo>,
+    pub completed_count: usize,
+    pub pending_count: usize,
+}
+
+#[derive(Template)]
+#[template(path = "modules/users/main.html")]
+pub struct UsersPageTemplate {
+    pub users: Vec<users::User>,
+}
+
 
 // 首次访问返回完整页面
 pub async fn index() -> impl IntoResponse {
