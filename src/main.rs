@@ -2,19 +2,11 @@ mod db;
 mod routes;
 
 use axum::{
-    body::Body,
-    http::{header, StatusCode, Uri},
-    response::{IntoResponse, Response},
     routing::get,
     Extension, Router,
 };
-use rust_embed::RustEmbed;
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
-#[derive(RustEmbed)]
-#[folder = "static/"]
-struct StaticAssets;
 
 #[tokio::main]
 async fn main() {
@@ -42,13 +34,13 @@ async fn main() {
         // 官网首页
         .route("/", get(routes::official::index))
         // /app 开头 - 返回完整 HTML 页面
-        .route("/app", get(routes::index))
-        .route("/app/todos", get(routes::todos_page))
-        .route("/app/users", get(routes::users_page))
+        .route("/app", get(routes::pages::index))
+        .route("/app/todos", get(routes::pages::todos_page))
+        .route("/app/users", get(routes::pages::users_page))
         // /block 开头 - 返回 HTML 片段
-        .route("/block/home", get(routes::page_home))
-        .route("/block/todos", get(routes::page_todos))
-        .route("/block/users", get(routes::page_users))
+        .route("/block/home", get(routes::pages::page_home))
+        .route("/block/todos", get(routes::pages::page_todos))
+        .route("/block/users", get(routes::pages::page_users))
         .route("/block/todos/create-form", get(routes::todos::create_form))
         .route("/block/users/search", get(routes::users::search))
         .route("/block/users/:id/detail", get(routes::users::detail))
@@ -64,7 +56,7 @@ async fn main() {
             axum::routing::put(routes::todos::toggle),
         )
         // 静态文件（嵌入式）
-        .route("/static/*path", get(static_handler))
+        .route("/static/*path", get(routes::static_assets::static_handler))
         .layer(TraceLayer::new_for_http())
         .layer(Extension(pool)); // 将数据库连接池注入到所有路由
 
@@ -79,24 +71,4 @@ async fn main() {
     tracing::info!("📱 Navigate pages without refresh!");
     tracing::info!("💾 SQLite database: app.db");
     axum::serve(listener, app).await.unwrap();
-}
-
-async fn static_handler(uri: Uri) -> impl IntoResponse {
-    let path = uri.path().trim_start_matches("/static/");
-
-    match StaticAssets::get(path) {
-        Some(content) => {
-            let mime = mime_guess::from_path(path).first_or_octet_stream();
-            Response::builder()
-                .status(StatusCode::OK)
-                .header(header::CONTENT_TYPE, mime.as_ref())
-                .header(header::CACHE_CONTROL, "public, max-age=31536000")
-                .body(Body::from(content.data))
-                .unwrap()
-        }
-        None => Response::builder()
-            .status(StatusCode::NOT_FOUND)
-            .body(Body::from("404 Not Found"))
-            .unwrap(),
-    }
 }
