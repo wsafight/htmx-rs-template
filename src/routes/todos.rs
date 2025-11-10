@@ -8,6 +8,9 @@ use axum::{
 use serde::Deserialize;
 use sqlx::SqlitePool;
 
+// 导入缓存失效函数
+use super::pages::invalidate_todo_cache;
+
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct Todo {
     pub id: i64,
@@ -76,6 +79,9 @@ pub async fn create(
 
     match result {
         Ok(todo) => {
+            // 数据变更，使缓存失效
+            invalidate_todo_cache();
+            
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,
@@ -109,6 +115,9 @@ pub async fn delete(
 
     match result {
         Ok(_) => {
+            // 数据变更，使缓存失效
+            invalidate_todo_cache();
+            
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,
@@ -144,6 +153,9 @@ pub async fn toggle(
 
     match result {
         Ok(todo) => {
+            // 数据变更，使缓存失效
+            invalidate_todo_cache();
+            
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,

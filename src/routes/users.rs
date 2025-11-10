@@ -5,6 +5,9 @@ use axum::http::StatusCode;
 use serde::Deserialize;
 use sqlx::SqlitePool;
 
+// 导入缓存管理器
+use super::pages::CACHE_MANAGER;
+
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct User {
     pub id: i64,
@@ -44,7 +47,11 @@ pub async fn search(
     let query = params.q.unwrap_or_default();
 
     let users = if query.is_empty() {
-        get_all_users(&pool).await.unwrap_or_default()
+        // 使用带缓存的函数获取所有用户
+        CACHE_MANAGER
+            .get_users_with_cache(&pool)
+            .await
+            .unwrap_or_default()
     } else {
         // 使用 LIKE 进行模糊搜索
         let search_pattern = format!("%{}%", query);
