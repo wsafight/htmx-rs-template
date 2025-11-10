@@ -60,7 +60,7 @@
         <!-- 导航栏 -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand fw-bold" href="/">
+                <a class="navbar-brand fw-bold" href="/" hx-boost="false">
                     <i class="bi bi-rocket-takeoff me-2"></i>
                     HTMX + Rust SPA
                 </a>
@@ -76,26 +76,26 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a
-                                href="/todos"
-                                hx-get="/page/todos"
+                                href="/app/todos"
+                                hx-get="/block/todos"
                                 hx-target="#main-content"
                                 hx-swap="innerHTML swap:300ms"
-                                hx-push-url="/todos"
+                                hx-push-url="/app/todos"
                                 class="nav-link nav-link-custom"
-                                data-page="/todos"
+                                data-page="/app/todos"
                             >
                                 <i class="bi bi-check-square me-1"></i>待办事项
                             </a>
                         </li>
                         <li class="nav-item">
                             <a
-                                href="/users"
-                                hx-get="/page/users"
+                                href="/app/users"
+                                hx-get="/block/users"
                                 hx-target="#main-content"
                                 hx-swap="innerHTML swap:300ms"
-                                hx-push-url="/users"
+                                hx-push-url="/app/users"
                                 class="nav-link nav-link-custom"
-                                data-page="/users"
+                                data-page="/app/users"
                             >
                                 <i class="bi bi-people me-1"></i>用户列表
                             </a>

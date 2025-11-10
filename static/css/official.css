@@ -1,0 +1,28 @@
+/* ========================================
+   官网专用样式
+   ======================================== */
+
+/* 额外的渐变和动画 */
+.bg-purple {
+    background-color: #9333ea !important;
+}
+
+.text-purple {
+    color: #9333ea !important;
+}
+
+/* 悬停时社交图标颜色变化 */
+.hover-primary:hover {
+    color: var(--bs-primary) !important;
+    transition: color 0.3s ease;
+}
+
+/* 平滑的页面滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 导航栏滚动时的效果 */
+.navbar-official.scrolled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

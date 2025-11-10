@@ -33,11 +33,11 @@
                     使用 HTML 属性实现 SPA 体验
                 </p>
                 <a
-                    href="/todos"
-                    hx-get="/page/todos"
+                    href="/app/todos"
+                    hx-get="/block/todos"
                     hx-target="#main-content"
                     hx-swap="innerHTML swap:300ms"
-                    hx-push-url="/todos"
+                    hx-push-url="/app/todos"
                     class="btn btn-primary"
                 >
                     <i class="bi bi-check-square me-2"></i>查看待办示例
@@ -56,11 +56,11 @@
                     使用 Axum 框架构建高性能、类型安全的后端
                 </p>
                 <a
-                    href="/users"
-                    hx-get="/page/users"
+                    href="/app/users"
+                    hx-get="/block/users"
                     hx-target="#main-content"
                     hx-swap="innerHTML swap:300ms"
-                    hx-push-url="/users"
+                    hx-push-url="/app/users"
                     class="btn btn-danger"
                 >
                     <i class="bi bi-people me-2"></i>查看用户示例
@@ -80,7 +80,7 @@
                 </p>
                 <button
                     class="btn btn-success"
-                    hx-get="/modal/example"
+                    hx-get="/block/modal/example"
                     hx-target="#modal-container"
                     hx-swap="innerHTML"
                 >

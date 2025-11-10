@@ -1,0 +1,467 @@
+{% extends "./layout.html" %} {% block content %}
+
+<!-- Hero Section -->
+<section
+    class="hero-section d-flex align-items-center text-white position-relative"
+>
+    <div class="container position-relative" style="z-index: 1">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div
+                    class="badge bg-white bg-opacity-25 text-white mb-3 px-3 py-2"
+                >
+                    <i class="bi bi-stars me-2"></i>现代化 Web 开发平台
+                </div>
+                <h1 class="display-3 fw-bold mb-4">
+                    构建下一代 <br />
+                    <span class="text-warning">Web 应用</span>
+                </h1>
+                <p class="lead mb-4 fs-5">
+                    基于 Rust 和 HTMX
+                    的企业级解决方案，提供卓越的性能、安全性和开发体验。
+                    无需复杂的前端框架，享受简洁优雅的全栈开发。
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a
+                        href="/app/todos"
+                        class="btn btn-light btn-cta"
+                        hx-boost="false"
+                    >
+                        <i class="bi bi-rocket-takeoff me-2"></i>立即体验
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-cta">
+                        <i class="bi bi-play-circle me-2"></i>了解更多
+                    </a>
+                </div>
+                <div class="mt-4 d-flex gap-4 text-white-50">
+                    <div>
+                        <i
+                            class="bi bi-check-circle-fill text-warning me-2"
+                        ></i>
+                        <span>零 JS 框架</span>
+                    </div>
+                    <div>
+                        <i
+                            class="bi bi-check-circle-fill text-warning me-2"
+                        ></i>
+                        <span>类型安全</span>
+                    </div>
+                    <div>
+                        <i
+                            class="bi bi-check-circle-fill text-warning me-2"
+                        ></i>
+                        <span>高性能</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <!-- 装饰性代码预览 -->
+                    <div class="card shadow-lg border-0">
+                        <div
+                            class="card-header bg-dark text-white d-flex align-items-center"
+                        >
+                            <div class="d-flex gap-2 me-3">
+                                <div
+                                    class="rounded-circle bg-danger"
+                                    style="width: 12px; height: 12px"
+                                ></div>
+                                <div
+                                    class="rounded-circle bg-warning"
+                                    style="width: 12px; height: 12px"
+                                ></div>
+                                <div
+                                    class="rounded-circle bg-success"
+                                    style="width: 12px; height: 12px"
+                                ></div>
+                            </div>
+                            <small>main.rs</small>
+                        </div>
+                        <div
+                            class="card-body bg-dark text-light font-monospace small"
+                        >
+                            <pre
+                                class="mb-0"
+                            ><code><span class="text-warning">use</span> axum::{Router, routing::get};
+
+<span class="text-info">#[tokio::main]</span>
+<span class="text-warning">async fn</span> <span class="text-success">main</span>() {
+    <span class="text-warning">let</span> app = Router::<span class="text-success">new</span>()
+        .<span class="text-success">route</span>(<span class="text-danger">"/"</span>, <span class="text-success">get</span>(index));
+
+    <span class="text-info">// 启动服务器</span>
+    axum::Server::<span class="text-success">bind</span>(<span class="text-danger">"0.0.0.0:3000"</span>)
+        .<span class="text-success">serve</span>(app)
+        .<span class="text-warning">await</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                    <!-- 浮动徽章 -->
+                    <div
+                        class="position-absolute top-0 end-0 translate-middle badge bg-success rounded-pill px-3 py-2 shadow"
+                    >
+                        <i class="bi bi-lightning-charge-fill me-1"></i>超快启动
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 统计数据 Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-3 col-6">
+                <div class="stat-number">99.9%</div>
+                <p class="text-muted fw-semibold">系统可用性</p>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-number">&lt;50ms</div>
+                <p class="text-muted fw-semibold">平均响应时间</p>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-number">10K+</div>
+                <p class="text-muted fw-semibold">活跃用户</p>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-number">100%</div>
+                <p class="text-muted fw-semibold">类型安全</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 功能特性 Section -->
+<section id="features" class="py-5 mt-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div
+                class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2"
+            >
+                <i class="bi bi-stars me-2"></i>核心功能
+            </div>
+            <h2 class="display-5 fw-bold mb-3">为什么选择我们</h2>
+            <p class="lead text-muted">强大的功能，简洁的实现</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- 特性卡片 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div
+                        class="feature-icon bg-primary bg-opacity-10 text-primary"
+                    >
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">极致性能</h4>
+                    <p class="text-muted">
+                        Rust 的零成本抽象和内存安全保证，结合 Axum
+                        的异步运行时，提供卓越的性能表现。
+                        处理高并发请求轻松自如。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 特性卡片 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div
+                        class="feature-icon bg-success bg-opacity-10 text-success"
+                    >
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">类型安全</h4>
+                    <p class="text-muted">
+                        从前端到后端的完整类型检查，编译时发现错误，避免运行时崩溃。
+                        Askama 模板引擎提供编译时模板验证。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 特性卡片 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div class="feature-icon bg-info bg-opacity-10 text-info">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">简洁开发</h4>
+                    <p class="text-muted">
+                        使用 HTMX 通过 HTML 属性实现 SPA
+                        体验，无需复杂的前端框架。 极少的 JavaScript
+                        代码，维护更简单。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 特性卡片 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div
+                        class="feature-icon bg-warning bg-opacity-10 text-warning"
+                    >
+                        <i class="bi bi-database"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">数据库集成</h4>
+                    <p class="text-muted">
+                        SQLx 提供编译时 SQL 验证和异步数据库访问。 支持
+                        PostgreSQL、MySQL、SQLite 等主流数据库。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 特性卡片 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div
+                        class="feature-icon bg-danger bg-opacity-10 text-danger"
+                    >
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">响应式设计</h4>
+                    <p class="text-muted">
+                        Bootstrap 5 和 UnoCSS 提供现代化的 UI 组件和原子化 CSS。
+                        完美适配桌面、平板和移动设备。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 特性卡片 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100 p-4">
+                    <div
+                        class="feature-icon bg-purple bg-opacity-10 text-purple"
+                    >
+                        <i class="bi bi-rocket-takeoff"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3">快速部署</h4>
+                    <p class="text-muted">
+                        单一可执行文件部署，静态资源编译时嵌入。 支持 Docker
+                        容器化，轻松扩展到云平台。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 技术栈 Section -->
+<section id="tech-stack" class="py-5 mt-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div
+                class="badge bg-success bg-opacity-10 text-success mb-3 px-3 py-2"
+            >
+                <i class="bi bi-stack me-2"></i>技术栈
+            </div>
+            <h2 class="display-5 fw-bold mb-3">现代化技术组合</h2>
+            <p class="lead text-muted">精选的技术栈，为您提供最佳开发体验</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Rust -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                    <div class="display-1 mb-3">🦀</div>
+                    <h5 class="fw-bold mb-2">Rust</h5>
+                    <p class="text-muted small mb-0">
+                        高性能、内存安全的系统编程语言
+                    </p>
+                </div>
+            </div>
+
+            <!-- Axum -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                    <div class="display-1 mb-3">⚡</div>
+                    <h5 class="fw-bold mb-2">Axum</h5>
+                    <p class="text-muted small mb-0">现代化的异步 Web 框架</p>
+                </div>
+            </div>
+
+            <!-- HTMX -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                    <div class="display-1 mb-3">🚀</div>
+                    <h5 class="fw-bold mb-2">HTMX</h5>
+                    <p class="text-muted small mb-0">
+                        无需 JS 框架的现代化交互
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bootstrap -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center p-4 border-0 shadow-sm">
+                    <div class="display-1 mb-3">🎨</div>
+                    <h5 class="fw-bold mb-2">Bootstrap</h5>
+                    <p class="text-muted small mb-0">响应式 UI 组件库</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更多技术 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="row g-3 align-items-center text-center">
+                        <div class="col">
+                            <i class="bi bi-database fs-3 text-primary"></i>
+                            <p class="small mb-0 mt-2 fw-semibold">SQLx</p>
+                        </div>
+                        <div class="col">
+                            <i
+                                class="bi bi-file-earmark-code fs-3 text-success"
+                            ></i>
+                            <p class="small mb-0 mt-2 fw-semibold">Askama</p>
+                        </div>
+                        <div class="col">
+                            <i class="bi bi-box fs-3 text-info"></i>
+                            <p class="small mb-0 mt-2 fw-semibold">Tokio</p>
+                        </div>
+                        <div class="col">
+                            <i class="bi bi-palette fs-3 text-warning"></i>
+                            <p class="small mb-0 mt-2 fw-semibold">UnoCSS</p>
+                        </div>
+                        <div class="col">
+                            <i class="bi bi-hdd fs-3 text-danger"></i>
+                            <p class="small mb-0 mt-2 fw-semibold">SQLite</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="why-us" class="py-5 mt-5">
+    <div class="container">
+        <div class="card border-0 shadow-lg overflow-hidden">
+            <div class="row g-0">
+                <div
+                    class="col-lg-6 gradient-bg text-white p-5 d-flex align-items-center"
+                >
+                    <div>
+                        <h2 class="display-6 fw-bold mb-4">准备好开始了吗？</h2>
+                        <p class="lead mb-4">
+                            立即体验 HTMX + Rust 的强大组合，构建您的下一个 Web
+                            应用。
+                        </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                5 分钟快速上手
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                完整的示例代码
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                详细的开发文档
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                活跃的社区支持
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 bg-white p-5 d-flex align-items-center">
+                    <div class="w-100">
+                        <h4 class="fw-bold mb-4">快速开始</h4>
+                        <div
+                            class="bg-dark text-light p-3 rounded font-monospace small mb-4"
+                        >
+                            <div class="text-success">$ cargo run</div>
+                            <div class="text-info mt-2">
+                                🚀 Server listening on http://127.0.0.1:3000
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a
+                                href="/app/todos"
+                                class="btn btn-primary btn-lg"
+                                hx-boost="false"
+                            >
+                                <i class="bi bi-rocket-takeoff me-2"></i>查看
+                                Demo
+                            </a>
+                            <a
+                                href="/login"
+                                class="btn btn-outline-primary btn-lg"
+                            >
+                                <i class="bi bi-box-arrow-in-right me-2"></i
+                                >登录系统
+                            </a>
+                        </div>
+                        <p class="text-muted small mt-3 mb-0 text-center">
+                            <i class="bi bi-github me-2"></i>
+                            开源项目，MIT 许可证
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 Section -->
+<section id="contact" class="py-5 mt-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="badge bg-info bg-opacity-10 text-info mb-3 px-3 py-2">
+                <i class="bi bi-envelope me-2"></i>联系我们
+            </div>
+            <h2 class="display-5 fw-bold mb-3">有问题？联系我们</h2>
+            <p class="lead text-muted">我们的团队随时为您提供帮助</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card text-center p-4 h-100 border-0 shadow-sm">
+                    <div
+                        class="feature-icon bg-primary bg-opacity-10 text-primary"
+                    >
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">邮件支持</h5>
+                    <p class="text-muted mb-3">发送邮件给我们</p>
+                    <a
+                        href="mailto:support@example.com"
+                        class="btn btn-outline-primary"
+                    >
+                        support@example.com
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center p-4 h-100 border-0 shadow-sm">
+                    <div
+                        class="feature-icon bg-success bg-opacity-10 text-success"
+                    >
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">在线客服</h5>
+                    <p class="text-muted mb-3">实时在线沟通</p>
+                    <button class="btn btn-outline-success">开始聊天</button>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center p-4 h-100 border-0 shadow-sm">
+                    <div class="feature-icon bg-info bg-opacity-10 text-info">
+                        <i class="bi bi-github"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">GitHub</h5>
+                    <p class="text-muted mb-3">查看源代码和问题</p>
+                    <a href="#" class="btn btn-outline-info"> 访问仓库 </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

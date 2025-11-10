@@ -20,7 +20,7 @@
                         name="q"
                         class="form-control"
                         placeholder="搜索用户名或邮箱..."
-                        hx-get="/users/search"
+                        hx-get="/block/users/search"
                         hx-trigger="keyup changed delay:300ms"
                         hx-target="#search-results"
                         hx-indicator="#loading"
@@ -76,7 +76,7 @@
                     <div class="d-flex gap-2">
                         <button
                             class="btn btn-sm btn-outline-primary flex-fill"
-                            hx-get="/users/{{ user.id }}/detail"
+                            hx-get="/block/users/{{ user.id }}/detail"
                             hx-target="#modal-container"
                             hx-swap="innerHTML"
                         >

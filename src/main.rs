@@ -39,27 +39,30 @@ async fn main() {
     tracing::info!("✅ 数据库初始化完成");
 
     let app = Router::new()
-        // 首次加载完整页面（支持直接访问）
-        .route("/", get(routes::index))
-        .route("/todos", get(routes::todos_page))
-        .route("/users", get(routes::users_page))
-        // SPA 页面内容路由（返回 HTML 片段）
-        .route("/page/home", get(routes::page_home))
-        .route("/page/todos", get(routes::page_todos))
-        .route("/page/users", get(routes::page_users))
-        // 待办事项 API
-        .route("/todos/create", get(routes::todos::create_form))
+        // 官网首页
+        .route("/", get(routes::official::index))
+        // /app 开头 - 返回完整 HTML 页面
+        .route("/app", get(routes::index))
+        .route("/app/todos", get(routes::todos_page))
+        .route("/app/users", get(routes::users_page))
+        // /block 开头 - 返回 HTML 片段
+        .route("/block/home", get(routes::page_home))
+        .route("/block/todos", get(routes::page_todos))
+        .route("/block/users", get(routes::page_users))
+        .route("/block/todos/create-form", get(routes::todos::create_form))
+        .route("/block/users/search", get(routes::users::search))
+        .route("/block/users/:id/detail", get(routes::users::detail))
+        .route("/block/modal/example", get(routes::modal::example))
+        // /api 开头 - 返回 JSON 或执行操作后返回 HTML 片段
         .route("/api/todos", axum::routing::post(routes::todos::create))
-        .route("/todos/:id", axum::routing::delete(routes::todos::delete))
         .route(
-            "/todos/:id/toggle",
+            "/api/todos/:id",
+            axum::routing::delete(routes::todos::delete),
+        )
+        .route(
+            "/api/todos/:id/toggle",
             axum::routing::put(routes::todos::toggle),
         )
-        // 用户 API
-        .route("/users/search", get(routes::users::search))
-        .route("/users/:id/detail", get(routes::users::detail))
-        // 模态框
-        .route("/modal/example", get(routes::modal::example))
         // 静态文件（嵌入式）
         .route("/static/*path", get(static_handler))
         .layer(TraceLayer::new_for_http())

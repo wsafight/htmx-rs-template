@@ -13,7 +13,7 @@
                 %}checked{%
                 endif
                 %}
-                hx-put="/todos/{{ todo.id }}/toggle"
+                hx-put="/api/todos/{{ todo.id }}/toggle"
                 hx-target="#todo-{{ todo.id }}"
                 hx-swap="outerHTML"
                 style="cursor: pointer"
@@ -38,7 +38,7 @@
             {% endif %}
             <button
                 class="btn btn-sm btn-outline-danger"
-                hx-delete="/todos/{{ todo.id }}"
+                hx-delete="/api/todos/{{ todo.id }}"
                 hx-target="#todo-{{ todo.id }}"
                 hx-swap="outerHTML swap:300ms"
                 hx-confirm="确定要删除这个任务吗？"
