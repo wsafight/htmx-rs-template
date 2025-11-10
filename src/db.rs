@@ -184,13 +184,30 @@ pub async fn seed_data(pool: &SqlitePool) -> Result<(), DbError> {
         .await?;
 
     if user_count == 0 {
-        // 插入示例用户
+        // 插入示例用户（20个）
         let users = vec![
             ("张三", "zhangsan@example.com"),
             ("李四", "lisi@example.com"),
             ("王五", "wangwu@example.com"),
             ("赵六", "zhaoliu@example.com"),
+            ("孙七", "sunqi@example.com"),
+            ("周八", "zhouba@example.com"),
+            ("吴九", "wujiu@example.com"),
+            ("郑十", "zhengshi@example.com"),
+            ("陈一一", "chenyiyi@example.com"),
+            ("褚一二", "chuyier@example.com"),
+            ("卫一三", "weiyisan@example.com"),
+            ("蒋一四", "jiangyisi@example.com"),
+            ("沈一五", "shenyiwu@example.com"),
+            ("韩一六", "hanyiliu@example.com"),
+            ("杨一七", "yangyiqi@example.com"),
+            ("朱一八", "zhuyiba@example.com"),
+            ("秦一九", "qinyijiu@example.com"),
+            ("尤二十", "youershi@example.com"),
+            ("许二一", "xueryi@example.com"),
+            ("何二二", "heerer@example.com"),
         ];
+        let user_count = users.len();
 
         for (name, email) in users {
             sqlx::query("INSERT INTO users (name, email) VALUES (?, ?)")
@@ -200,7 +217,7 @@ pub async fn seed_data(pool: &SqlitePool) -> Result<(), DbError> {
                 .await?;
         }
 
-        tracing::info!("✅ 插入用户示例数据");
+        tracing::info!("✅ 插入 {} 个用户示例数据", user_count);
     }
 
     tx.commit().await?;
@@ -208,6 +225,7 @@ pub async fn seed_data(pool: &SqlitePool) -> Result<(), DbError> {
 }
 
 /// 简化的数据库初始化函数（兼容旧接口）
+#[allow(dead_code)]
 pub async fn init_db(pool: &SqlitePool) -> Result<(), DbError> {
     run_migrations(pool).await
 }

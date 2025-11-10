@@ -22,10 +22,13 @@ pub enum ConfigError {
 /// 数据库配置
 #[derive(Debug, Deserialize, Clone)]
 pub struct DatabaseConfig {
+    #[allow(dead_code)]
     pub url: Option<String>,
     pub max_connections: u32,
     pub min_connections: u32,
+    #[allow(dead_code)]
     pub acquire_timeout_seconds: u64,
+    #[allow(dead_code)]
     pub idle_timeout_seconds: u64,
 }
 
@@ -46,6 +49,7 @@ impl Default for DatabaseConfig {
 pub struct ServerConfig {
     pub host: String,
     pub port: u16,
+    #[allow(dead_code)]
     pub worker_threads: Option<usize>,
     pub graceful_shutdown_timeout_seconds: u64,
 }
@@ -56,7 +60,7 @@ impl Default for ServerConfig {
             host: "127.0.0.1".to_string(),
             port: 3000,
             worker_threads: None,
-            graceful_shutdown_timeout_seconds: 30,
+            graceful_shutdown_timeout_seconds: 5,
         }
     }
 }
@@ -72,7 +76,9 @@ impl ServerConfig {
 #[derive(Debug, Deserialize, Clone)]
 pub struct SecurityConfig {
     pub cors_allow_origins: Vec<String>,
+    #[allow(dead_code)]
     pub rate_limit_per_minute: u64,
+    #[allow(dead_code)]
     pub enable_csrf: bool,
 }
 
@@ -178,11 +184,13 @@ impl AppConfig {
     }
 
     /// 是否为生产环境
+    #[allow(dead_code)]
     pub fn is_production(&self) -> bool {
         self.environment.to_lowercase() == "production"
     }
 
     /// 是否为开发环境
+    #[allow(dead_code)]
     pub fn is_development(&self) -> bool {
         self.environment.to_lowercase() == "development"
     }

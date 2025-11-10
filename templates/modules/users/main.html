@@ -18,12 +18,20 @@
                     <input
                         type="text"
                         name="q"
+                        id="user-search-input"
                         class="form-control"
                         placeholder="搜索用户名或邮箱..."
                         hx-get="/block/users/search"
                         hx-trigger="keyup changed delay:300ms"
                         hx-target="#search-results"
                         hx-indicator="#loading"
+                        hx-include="[name='per_page']"
+                    />
+                    <input
+                        type="hidden"
+                        name="per_page"
+                        value="12"
+                        id="per-page-input"
                     />
                 </div>
                 <div class="form-text">
@@ -43,7 +51,12 @@
 </div>
 
 <!-- 用户列表 -->
-<div id="search-results">
+<div
+    id="search-results"
+    hx-get="/block/users/search?page=1&per_page=12"
+    hx-trigger="load"
+    hx-swap="innerHTML"
+>
     <div class="row g-4">
         {% for user in users %}
         <div class="col-md-6 col-lg-4">

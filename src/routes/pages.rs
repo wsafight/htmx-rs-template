@@ -206,17 +206,13 @@ pub async fn page_todos(Extension(pool): Extension<SqlitePool>) -> impl IntoResp
 
 /// SPA 页面内容 - 用户列表
 pub async fn page_users(Extension(pool): Extension<SqlitePool>) -> impl IntoResponse {
-    match CACHE_MANAGER.get_users_with_cache(&pool).await {
-        Ok(users) => UsersPageTemplate { users }.into_response(),
-        Err(e) => {
-            tracing::error!("获取用户列表失败: {}", e);
-            (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                "获取数据失败，请稍后重试",
-            )
-                .into_response()
-        }
-    }
+    // 获取前12个用户用于初始显示
+    let users = sqlx::query_as::<_, User>("SELECT id, name, email FROM users ORDER BY id LIMIT 12")
+        .fetch_all(&pool)
+        .await
+        .unwrap_or_default();
+
+    UsersPageTemplate { users }.into_response()
 }
 
 // 导出缓存失效函数，供其他模块调用

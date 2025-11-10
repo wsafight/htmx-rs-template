@@ -5,6 +5,7 @@
     <p class="text-muted">搜索关键词: "{{ query }}"</p>
 </div>
 {% else %}
+
 <div class="row g-4">
     {% for user in users %}
     <div class="col-md-6 col-lg-4">
@@ -53,4 +54,5 @@
     </div>
     {% endfor %}
 </div>
-{% endif %}
+
+{% include "components/pagination/pagination.html" %} {% endif %}
