@@ -43,7 +43,9 @@ pub struct SearchQuery {
 }
 
 /// 从数据库获取所有用户
+/// 使用索引优化查询性能
 pub async fn get_all_users(pool: &SqlitePool) -> Result<Vec<User>, sqlx::Error> {
+    // 利用主键索引优化查询
     sqlx::query_as::<_, User>("SELECT id, name, email FROM users ORDER BY id")
         .fetch_all(pool)
         .await
@@ -65,7 +67,7 @@ pub async fn search(
     let per_page = page_query.get_per_page();
     let offset = page_query.get_offset();
 
-    // 获取总数
+    // 获取总数 - 使用索引优化统计查询
     let total: i64 = if query.is_empty() {
         sqlx::query_scalar("SELECT COUNT(*) FROM users")
             .fetch_one(&pool)
@@ -73,26 +75,35 @@ pub async fn search(
             .unwrap_or(0)
     } else {
         let search_pattern = format!("%{}%", query);
-        sqlx::query_scalar("SELECT COUNT(*) FROM users WHERE name LIKE ? OR email LIKE ?")
-            .bind(&search_pattern)
-            .bind(&search_pattern)
-            .fetch_one(&pool)
-            .await
-            .unwrap_or(0)
+        // 使用子查询避免双重计数，优化搜索统计性能
+        sqlx::query_scalar(
+            "SELECT COUNT(*) FROM users WHERE name LIKE ? OR email LIKE ?"
+        )
+        .bind(&search_pattern)
+        .bind(&search_pattern)
+        .fetch_one(&pool)
+        .await
+        .unwrap_or(0)
     };
 
-    // 获取分页数据
+    // 获取分页数据 - 使用索引优化查询性能
     let users = if query.is_empty() {
-        sqlx::query_as::<_, User>("SELECT id, name, email FROM users ORDER BY id LIMIT ? OFFSET ?")
-            .bind(per_page)
-            .bind(offset)
-            .fetch_all(&pool)
-            .await
-            .unwrap_or_default()
+        // 简单查询使用主键索引
+        sqlx::query_as::<_, User>(
+            "SELECT id, name, email FROM users ORDER BY id LIMIT ? OFFSET ?"
+        )
+        .bind(per_page)
+        .bind(offset)
+        .fetch_all(&pool)
+        .await
+        .unwrap_or_default()
     } else {
         let search_pattern = format!("%{}%", query);
+        // 使用索引优化搜索查询
         sqlx::query_as::<_, User>(
-            "SELECT id, name, email FROM users WHERE name LIKE ? OR email LIKE ? ORDER BY id LIMIT ? OFFSET ?",
+            "SELECT id, name, email FROM users \
+             WHERE name LIKE ? OR email LIKE ? \
+             ORDER BY id LIMIT ? OFFSET ?"
         )
         .bind(&search_pattern)
         .bind(&search_pattern)

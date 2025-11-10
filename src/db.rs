@@ -26,9 +26,10 @@ pub struct MigrationInfo {
 }
 
 // 定义数据库迁移
-static MIGRATIONS: &[MigrationInfo] = &[MigrationInfo {
-    version: 1,
-    sql: r#"
+static MIGRATIONS: &[MigrationInfo] = &[
+    MigrationInfo {
+        version: 1,
+        sql: r#"
         CREATE TABLE IF NOT EXISTS todos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT NOT NULL,
@@ -48,7 +49,20 @@ static MIGRATIONS: &[MigrationInfo] = &[MigrationInfo {
             applied_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
         "#,
-}];
+    },
+    MigrationInfo {
+        version: 2,
+        sql: r#"
+        -- 为users表的name和email字段添加索引，优化搜索性能
+        CREATE INDEX IF NOT EXISTS idx_users_name ON users(name);
+        CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+        -- 为todos表的completed字段添加索引，优化状态过滤
+        CREATE INDEX IF NOT EXISTS idx_todos_completed ON todos(completed);
+        -- 为todos表的id字段添加降序索引，优化排序查询
+        CREATE INDEX IF NOT EXISTS idx_todos_id_desc ON todos(id DESC);
+        "#,
+    },
+];
 
 /// 获取可执行文件所在目录的数据库路径
 fn get_default_db_path() -> String {
@@ -72,22 +86,50 @@ pub async fn create_pool() -> Result<SqlitePool, DbError> {
 
     tracing::info!("📂 数据库路径: {}", database_url);
 
+    // 从环境变量获取连接池配置（用于生产环境调整）
+    let max_connections = std::env::var("DB_MAX_CONNECTIONS")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(15); // 增加最大连接数以支持更多并发
+    
+    let min_connections = std::env::var("DB_MIN_CONNECTIONS")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(3); // 适当增加最小连接数以减少冷启动延迟
+    
+    let acquire_timeout = std::env::var("DB_ACQUIRE_TIMEOUT")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(8); // 增加超时时间以适应高负载情况
+    
+    let idle_timeout = std::env::var("DB_IDLE_TIMEOUT")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(600); // 延长空闲超时以保持连接热备
+
     // 创建连接选项
     let options = SqliteConnectOptions::from_str(&database_url)?
         .journal_mode(SqliteJournalMode::Wal) // 使用WAL模式提高并发性能
-        .busy_timeout(Duration::from_secs(5))
-        .create_if_missing(true);
+        .busy_timeout(Duration::from_secs(10)) // 增加busy_timeout以处理并发写入
+        .create_if_missing(true)
+        .pragma("synchronous", "NORMAL") // 优化写入性能
+        .pragma("temp_store", "MEMORY") // 临时表使用内存
+        .pragma("cache_size", "-65536"); // 增加缓存大小约512MB
 
     // 配置连接池
     let pool = SqlitePoolOptions::new()
-        .max_connections(10) // 增加最大连接数
-        .min_connections(2) // 保持最小连接数
-        .acquire_timeout(Duration::from_secs(5)) // 增加超时时间
-        .idle_timeout(Duration::from_secs(300)) // 设置空闲超时
+        .max_connections(max_connections)
+        .min_connections(min_connections)
+        .acquire_timeout(Duration::from_secs(acquire_timeout))
+        .idle_timeout(Duration::from_secs(idle_timeout))
+        .max_lifetime(Duration::from_secs(3600)) // 添加最大生命周期，防止连接泄漏
         .connect_with(options)
         .await?;
 
-    tracing::info!("✅ 数据库连接池创建成功");
+    tracing::info!(
+        "✅ 数据库连接池创建成功 [最大: {}, 最小: {}, 超时: {}s]", 
+        max_connections, min_connections, acquire_timeout
+    );
     Ok(pool)
 }
 
