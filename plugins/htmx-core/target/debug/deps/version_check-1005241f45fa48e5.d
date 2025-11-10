@@ -1,0 +1,10 @@
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/version_check-1005241f45fa48e5.d: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libversion_check-1005241f45fa48e5.rlib: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libversion_check-1005241f45fa48e5.rmeta: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs
+
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/lib.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/version.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/channel.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/version_check-0.9.5/src/date.rs:

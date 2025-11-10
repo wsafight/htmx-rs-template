@@ -1,0 +1,12 @@
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/crc-ed0bea5cafef8539.d: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc128.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc16.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc32.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc64.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc8.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/table.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/util.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libcrc-ed0bea5cafef8539.rmeta: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc128.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc16.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc32.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc64.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc8.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/table.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/util.rs
+
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/lib.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc128.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc16.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc32.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc64.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/crc8.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/table.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crc-3.3.0/src/util.rs:

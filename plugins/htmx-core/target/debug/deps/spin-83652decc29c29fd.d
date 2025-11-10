@@ -1,0 +1,12 @@
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/spin-83652decc29c29fd.d: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/barrier.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lazy.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex/spin.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/once.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/relax.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/rwlock.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libspin-83652decc29c29fd.rmeta: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/barrier.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lazy.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex/spin.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/once.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/relax.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/rwlock.rs
+
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lib.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/barrier.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/lazy.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/mutex/spin.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/once.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/relax.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spin-0.9.8/src/rwlock.rs:

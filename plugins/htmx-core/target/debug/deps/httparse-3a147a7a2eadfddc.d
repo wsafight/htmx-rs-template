@@ -1,0 +1,10 @@
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/httparse-3a147a7a2eadfddc.d: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/iter.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/macros.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/mod.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/swar.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/neon.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libhttparse-3a147a7a2eadfddc.rmeta: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/iter.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/macros.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/mod.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/swar.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/neon.rs
+
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/lib.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/iter.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/macros.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/mod.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/swar.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/httparse-1.10.1/src/simd/neon.rs:

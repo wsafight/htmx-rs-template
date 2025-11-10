@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/landing/static/style.css">
+</head>
+<body>
+    <div class="hero">
+        <h1>{{ title }}</h1>
+        <p class="subtitle">{{ subtitle }}</p>
+        <div class="cta-buttons">
+            <a href="#features" class="btn btn-primary">了解更多</a>
+            <a href="/auth/register" class="btn btn-secondary">立即开始</a>
+        </div>
+    </div>
+
+    <section id="features" class="features">
+        <h2>核心特性</h2>
+        <div class="feature-grid">
+            {% for feature in features %}
+            <div class="feature-card">
+                <div class="feature-icon">{{ feature.icon }}</div>
+                <h3>{{ feature.title }}</h3>
+                <p>{{ feature.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="stats" hx-get="/landing/stats" hx-trigger="revealed" hx-swap="innerHTML">
+        <div class="loading">加载统计数据...</div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 {{ title }}. All rights reserved.</p>
+    </footer>
+</body>
+</html>

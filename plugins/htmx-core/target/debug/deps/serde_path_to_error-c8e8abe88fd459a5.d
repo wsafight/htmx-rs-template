@@ -1,0 +1,9 @@
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/serde_path_to_error-c8e8abe88fd459a5.d: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/de.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/path.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/ser.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/wrap.rs
+
+/Users/wangshian/Desktop/re-search-ai/htmx-rs-template/plugins/htmx-core/target/debug/deps/libserde_path_to_error-c8e8abe88fd459a5.rmeta: /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/lib.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/de.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/path.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/ser.rs /Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/wrap.rs
+
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/lib.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/de.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/path.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/ser.rs:
+/Users/wangshian/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_path_to_error-0.1.20/src/wrap.rs:
