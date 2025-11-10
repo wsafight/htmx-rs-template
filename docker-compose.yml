@@ -1,6 +1,7 @@
-version: '3.8'
+version: "3.8"
 
 services:
+  # Rust 应用服务
   app:
     build:
       context: .
@@ -8,40 +9,52 @@ services:
     container_name: htmx-rs-app
     restart: unless-stopped
     environment:
-      - RUST_LOG=htmx_rs_template=debug,tower_http=debug,sqlx=info
+      - DATABASE_URL=sqlite:///app/data/app.db?mode=rwc
+      - RUST_LOG=htmx_rs_template=info,tower_http=info,sqlx=warn
     networks:
       - app-network
     volumes:
-      - app-data:/app
+      # 持久化数据库文件
+      - app-data:/app/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      test: ["CMD", "test", "-f", "/app/data/app.db"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 10s
+    # 仅在内部网络暴露端口，由 nginx 代理
+    expose:
+      - "3000"
 
+  # Nginx 反向代理
   nginx:
     image: nginx:1.27-alpine
     container_name: htmx-rs-nginx
     restart: unless-stopped
     ports:
+      # 映射到主机 80 端口
       - "80:80"
     volumes:
+      # 挂载 nginx 配置文件（只读）
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - app
+      app:
+        condition: service_healthy
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      test:
+        ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 3
 
 networks:
+  # 应用网络
   app-network:
     driver: bridge
 
 volumes:
+  # 应用数据卷（持久化数据库）
   app-data:
     driver: local

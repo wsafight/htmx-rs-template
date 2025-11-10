@@ -1,44 +1,72 @@
 # Git
-.git
+.git/
 .gitignore
+.gitattributes
 
-# Rust
+# Rust 构建产物
 target/
 **/*.rs.bk
 *.pdb
+Cargo.lock
 
-# Docker
-Dockerfile
-docker-compose.yml
+# Docker 相关
 .dockerignore
+docker-compose.yml
+docker-compose.*.yml
 
-# IDE
+# IDE 和编辑器
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
+
+# 操作系统
 Thumbs.db
+.Spotlight-V100
+.Trashes
 
-# Logs
+# 日志文件
 *.log
+logs/
 
-# Database (开发时的数据库文件)
+# 数据库文件（开发环境）
 *.db
 *.db-shm
 *.db-wal
+app.db*
 
-# Documentation
+# 环境变量文件
+.env
+.env.*
+!.env.example
+
+# 文档（不需要打包进镜像）
 README.md
 QUICKSTART.md
+PROJECT_STRUCTURE.md
+BOOTSTRAP_UNOCSS_GUIDE.md
+CHEATSHEET.md
 docs/
 
 # CI/CD
 .github/
+.gitlab-ci.yml
+.travis.yml
+
+# 测试
+tests/
+test-results/
+coverage/
+
+# 临时文件
+tmp/
+temp/
+*.tmp
 
 # 其他
-.env
-.env.*
+node_modules/
+.cache/
+dist/
+build/
