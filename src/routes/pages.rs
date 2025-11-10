@@ -1,5 +1,5 @@
 //! 页面路由处理模块
-//!
+//! 
 //! 提供各种页面的渲染功能，包含错误处理和缓存机制
 
 use askama::Template;
@@ -7,97 +7,48 @@ use askama_axum::IntoResponse;
 use axum::{http::StatusCode, Extension};
 use sqlx::SqlitePool;
 
-use std::sync::{Arc, RwLock};
-use std::time::{Duration, Instant};
+
+// 导入缓存模块
+use crate::helpers::cache::{invalidate_cache, get_from_cache, set_to_cache};
 
 // 导入其他模块的类型
 use super::todos::Todo;
 use super::users::User;
 
-// 缓存条目结构
-#[derive(Debug, Clone)]
-struct CacheEntry<T> {
-    data: T,
-    timestamp: Instant,
+// 获取待办事项（带缓存）
+async fn get_todos_with_cache(
+    pool: &SqlitePool,
+) -> Result<(Vec<Todo>, usize, usize), sqlx::Error> {
+    // 尝试从缓存获取
+    if let Some((todos, completed_count, pending_count)) = get_from_cache("todos") {
+        return Ok((todos, completed_count, pending_count));
+    }
+
+    // 缓存未命中或过期，从数据库获取
+    let todos = super::todos::get_todos(pool).await?;
+    let completed_count = todos.iter().filter(|t| t.completed).count();
+    let pending_count = todos.iter().filter(|t| !t.completed).count();
+
+    // 更新缓存并重置全局缓存状态
+    set_to_cache("todos", (todos.clone(), completed_count, pending_count), None);
+
+    Ok((todos, completed_count, pending_count))
 }
 
-// 内存缓存管理器
-pub struct CacheManager {
-    todo_cache: RwLock<Option<CacheEntry<(Vec<Todo>, usize, usize)>>>,
-    user_cache: RwLock<Option<CacheEntry<Vec<User>>>>,
-    cache_duration: Duration,
-}
-
-impl CacheManager {
-    fn new() -> Self {
-        Self {
-            todo_cache: RwLock::new(None),
-            user_cache: RwLock::new(None),
-            cache_duration: Duration::from_secs(60), // 缓存1分钟
-        }
+// 获取用户列表（带缓存）
+async fn get_users_with_cache(pool: &SqlitePool) -> Result<Vec<User>, sqlx::Error> {
+    // 尝试从缓存获取
+    if let Some(users) = get_from_cache("users") {
+        return Ok(users);
     }
 
-    // 获取待办事项（带缓存）
-    async fn get_todos_with_cache(
-        &self,
-        pool: &SqlitePool,
-    ) -> Result<(Vec<Todo>, usize, usize), sqlx::Error> {
-        // 尝试从缓存获取
-        if let Some(cache_entry) = &*self.todo_cache.read().unwrap() {
-            if Instant::now() - cache_entry.timestamp < self.cache_duration {
-                return Ok(cache_entry.data.clone());
-            }
-        }
+    // 缓存未命中或过期，从数据库获取
+    let users = super::users::get_all_users(pool).await?;
 
-        // 缓存未命中或过期，从数据库获取
-        let todos = super::todos::get_todos(pool).await?;
-        let completed_count = todos.iter().filter(|t| t.completed).count();
-        let pending_count = todos.iter().filter(|t| !t.completed).count();
+    // 更新缓存
+    set_to_cache("users", users.clone(), None);
 
-        // 更新缓存
-        *self.todo_cache.write().unwrap() = Some(CacheEntry {
-            data: (todos.clone(), completed_count, pending_count),
-            timestamp: Instant::now(),
-        });
-
-        Ok((todos, completed_count, pending_count))
-    }
-
-    // 获取用户列表（带缓存）
-    pub async fn get_users_with_cache(&self, pool: &SqlitePool) -> Result<Vec<User>, sqlx::Error> {
-        // 尝试从缓存获取
-        if let Some(cache_entry) = &*self.user_cache.read().unwrap() {
-            if Instant::now() - cache_entry.timestamp < self.cache_duration {
-                return Ok(cache_entry.data.clone());
-            }
-        }
-
-        // 缓存未命中或过期，从数据库获取
-        let users = super::users::get_all_users(pool).await?;
-
-        // 更新缓存
-        *self.user_cache.write().unwrap() = Some(CacheEntry {
-            data: users.clone(),
-            timestamp: Instant::now(),
-        });
-
-        Ok(users)
-    }
-
-    // 清除待办事项缓存
-    fn invalidate_todo_cache(&self) {
-        *self.todo_cache.write().unwrap() = None;
-    }
-
-    // 清除用户缓存
-    fn invalidate_user_cache(&self) {
-        *self.user_cache.write().unwrap() = None;
-    }
-}
-
-// 全局缓存管理器实例
-lazy_static::lazy_static! {
-    pub static ref CACHE_MANAGER: Arc<CacheManager> = Arc::new(CacheManager::new());
+    Ok(users)
 }
 
 // 完整页面模板（首次加载）
@@ -146,7 +97,7 @@ pub async fn index() -> impl IntoResponse {
 
 /// 直接访问 /todos 返回完整页面
 pub async fn todos_page(Extension(pool): Extension<SqlitePool>) -> impl IntoResponse {
-    match CACHE_MANAGER.get_todos_with_cache(&pool).await {
+    match get_todos_with_cache(&pool).await {
         Ok((todos, completed_count, pending_count)) => TodosFullPageTemplate {
             todos,
             completed_count,
@@ -166,7 +117,7 @@ pub async fn todos_page(Extension(pool): Extension<SqlitePool>) -> impl IntoResp
 
 /// 直接访问 /users 返回完整页面
 pub async fn users_page(Extension(pool): Extension<SqlitePool>) -> impl IntoResponse {
-    match CACHE_MANAGER.get_users_with_cache(&pool).await {
+    match get_users_with_cache(&pool).await {
         Ok(users) => UsersFullPageTemplate { users }.into_response(),
         Err(e) => {
             tracing::error!("获取用户列表失败: {}", e);
@@ -186,7 +137,7 @@ pub async fn page_home() -> impl IntoResponse {
 
 /// SPA 页面内容 - 待办事项
 pub async fn page_todos(Extension(pool): Extension<SqlitePool>) -> impl IntoResponse {
-    match CACHE_MANAGER.get_todos_with_cache(&pool).await {
+    match get_todos_with_cache(&pool).await {
         Ok((todos, completed_count, pending_count)) => TodosPageTemplate {
             todos,
             completed_count,
@@ -217,9 +168,12 @@ pub async fn page_users(Extension(pool): Extension<SqlitePool>) -> impl IntoResp
 
 // 导出缓存失效函数，供其他模块调用
 pub fn invalidate_todo_cache() {
-    CACHE_MANAGER.invalidate_todo_cache();
+    // 使待办事项缓存失效
+    invalidate_cache("todos");
 }
 
+#[allow(dead_code)]
 pub fn invalidate_user_cache() {
-    CACHE_MANAGER.invalidate_user_cache();
+    // 使用户缓存失效
+    invalidate_cache("users");
 }

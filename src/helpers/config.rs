@@ -1,10 +1,11 @@
 //! 应用配置管理模块
-//!
+//! 
 //! 统一管理应用的所有配置，支持从环境变量和配置文件加载配置
 
 use figment::{
     providers::{Env, Format, Toml},
-    Error as FigmentError, Figment,
+    Error as FigmentError,
+    Figment,
 };
 use serde::Deserialize;
 use std::path::PathBuf;

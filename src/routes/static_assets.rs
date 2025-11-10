@@ -17,6 +17,7 @@ enum StaticAssetError {
     /// 路径不安全（包含路径遍历）
     UnsafePath,
     /// 文件不存在
+    #[allow(dead_code)]
     NotFound,
 }
 

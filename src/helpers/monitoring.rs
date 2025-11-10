@@ -1,5 +1,5 @@
 //! 监控和运维功能模块
-//!
+//! 
 //! 提供健康检查、性能指标收集和API文档功能
 
 use axum::{extract::State, http::StatusCode, response::IntoResponse, Router};
@@ -10,7 +10,7 @@ use sqlx::SqlitePool;
 use std::sync::Arc;
 use std::time::Instant;
 
-use crate::config::AppConfig;
+use crate::helpers::config::AppConfig;
 
 /// 健康检查响应
 #[derive(Serialize)]
@@ -26,6 +26,7 @@ pub struct HealthCheckResponse {
 pub struct AppState {
     pub start_time: Instant,
     pub pool: SqlitePool,
+    #[allow(dead_code)]
     pub config: Arc<AppConfig>,
 }
 

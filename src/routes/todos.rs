@@ -81,7 +81,7 @@ pub async fn create(
         Ok(todo) => {
             // 数据变更，使缓存失效
             invalidate_todo_cache();
-            
+
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,
@@ -117,7 +117,7 @@ pub async fn delete(
         Ok(_) => {
             // 数据变更，使缓存失效
             invalidate_todo_cache();
-            
+
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,
@@ -155,7 +155,7 @@ pub async fn toggle(
         Ok(todo) => {
             // 数据变更，使缓存失效
             invalidate_todo_cache();
-            
+
             let stats = get_stats(&pool).await.unwrap_or(TodoStatsTemplate {
                 total_count: 0,
                 completed_count: 0,

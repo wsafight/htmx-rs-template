@@ -1,10 +1,11 @@
-mod config;
 mod db;
-mod monitoring;
+mod helpers;
 mod routes;
-mod security;
 
 use axum::{middleware, routing::get, Extension, Router};
+use helpers::config::{CONFIG};
+use helpers::monitoring::{create_monitoring_routes, init_metrics, AppState};
+use helpers::security::sanitize_log_message;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::signal;
@@ -15,7 +16,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 #[tokio::main]
 async fn main() {
     // 加载配置
-    let config = &config::CONFIG;
+    let config = &CONFIG;
 
     // 初始化日志
     tracing_subscriber::registry()
@@ -38,7 +39,7 @@ async fn main() {
         Err(e) => {
             tracing::error!(
                 "❌ 无法创建数据库连接池: {}",
-                security::sanitize_log_message(&e.to_string())
+                sanitize_log_message(&e.to_string())
             );
             std::process::exit(1);
         }
@@ -48,7 +49,7 @@ async fn main() {
     if let Err(e) = db::run_migrations(&pool).await {
         tracing::error!(
             "❌ 数据库迁移失败: {}",
-            security::sanitize_log_message(&e.to_string())
+            sanitize_log_message(&e.to_string())
         );
         std::process::exit(1);
     }
@@ -57,20 +58,20 @@ async fn main() {
     if let Err(e) = db::seed_data(&pool).await {
         tracing::warn!(
             "⚠️  示例数据插入失败: {}",
-            security::sanitize_log_message(&e.to_string())
+            sanitize_log_message(&e.to_string())
         );
     }
 
     tracing::info!("✅ 数据库初始化完成");
 
     // 初始化监控指标
-    monitoring::init_metrics();
+    init_metrics();
 
     // 创建应用状态
-    let app_state = monitoring::AppState::new(pool.clone(), Arc::new((*config).clone()));
+    let app_state = AppState::new(pool.clone(), Arc::new((*config).clone()));
 
     // 创建监控路由
-    let monitoring_routes = monitoring::create_monitoring_routes(app_state.clone());
+    let monitoring_routes = create_monitoring_routes(app_state.clone());
 
     // 配置中间件
     let cors_origins: Vec<_> = config
@@ -82,7 +83,7 @@ async fn main() {
 
     let middleware_stack = ServiceBuilder::new()
         // 跟踪请求
-        .layer(middleware::from_fn(monitoring::metrics_middleware))
+        .layer(middleware::from_fn(helpers::monitoring::metrics_middleware))
         .layer(TraceLayer::new_for_http())
         // CORS 配置
         .layer(
@@ -144,7 +145,7 @@ async fn main() {
             tracing::error!(
                 "❌ 无法绑定到地址 {}: {}",
                 config.server.server_addr(),
-                security::sanitize_log_message(&e.to_string())
+                sanitize_log_message(&e.to_string())
             );
             std::process::exit(1);
         }
@@ -168,7 +169,7 @@ async fn main() {
         Ok(_) => tracing::info!("✅ 服务器已正常关闭"),
         Err(e) => tracing::error!(
             "❌ 服务器错误: {}",
-            security::sanitize_log_message(&e.to_string())
+            sanitize_log_message(&e.to_string())
         ),
     }
 }

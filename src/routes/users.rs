@@ -2,8 +2,13 @@ use askama::Template;
 use askama_axum::IntoResponse;
 use axum::extract::{Extension, Path, Query};
 use axum::http::StatusCode;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use sqlx::SqlitePool;
+
+// 导入公共分页模块
+use crate::helpers::pagination::{
+    calculate_display_range, create_pagination, PageQuery, Pagination,
+};
 
 #[derive(Clone, Debug, sqlx::FromRow)]
 pub struct User {
@@ -37,16 +42,6 @@ pub struct SearchQuery {
     per_page: Option<i64>,
 }
 
-#[derive(Clone, Debug, Serialize)]
-pub struct Pagination {
-    pub current_page: i64,
-    pub per_page: i64,
-    pub total: i64,
-    pub total_pages: i64,
-    pub has_prev: bool,
-    pub has_next: bool,
-}
-
 /// 从数据库获取所有用户
 pub async fn get_all_users(pool: &SqlitePool) -> Result<Vec<User>, sqlx::Error> {
     sqlx::query_as::<_, User>("SELECT id, name, email FROM users ORDER BY id")
@@ -59,9 +54,16 @@ pub async fn search(
     Query(params): Query<SearchQuery>,
 ) -> impl IntoResponse {
     let query = params.q.unwrap_or_default();
-    let page = params.page.unwrap_or(1).max(1);
-    let per_page = params.per_page.unwrap_or(12).clamp(1, 100);
-    let offset = (page - 1) * per_page;
+
+    // 使用公共分页模块处理分页参数
+    let page_query = PageQuery {
+        page: params.page,
+        per_page: params.per_page,
+    };
+
+    let page = page_query.get_page();
+    let per_page = page_query.get_per_page();
+    let offset = page_query.get_offset();
 
     // 获取总数
     let total: i64 = if query.is_empty() {
@@ -101,20 +103,11 @@ pub async fn search(
         .unwrap_or_default()
     };
 
-    // 计算分页信息
-    let total_pages = (total as f64 / per_page as f64).ceil() as i64;
-    let pagination = Pagination {
-        current_page: page,
-        per_page,
-        total,
-        total_pages,
-        has_prev: page > 1,
-        has_next: page < total_pages,
-    };
+    // 使用公共分页模块创建分页信息
+    let pagination = create_pagination(page, per_page, total);
 
-    // 计算显示范围
-    let start_item = (page - 1) * per_page + 1;
-    let end_item = start_item - 1 + users.len() as i64;
+    // 使用公共分页模块计算显示范围
+    let (start_item, end_item) = calculate_display_range(page, per_page, users.len());
 
     UserSearchResultsTemplate {
         users,
