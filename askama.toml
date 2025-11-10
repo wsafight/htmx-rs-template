@@ -1,0 +1,9 @@
+[general]
+# 启用模板缓存
+cache = true
+
+# 模板目录
+dirs = ["templates"]
+
+# 使用 rust 作为默认语法
+syntax = "rust"

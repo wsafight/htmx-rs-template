@@ -1,0 +1,77 @@
+<!-- 页面标题 -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="display-6 fw-bold">
+            <i class="bi bi-check-square text-primary me-2"></i>待办事项
+        </h1>
+        <p class="text-muted mb-0">
+            使用 HTMX 实现的 CRUD 操作示例（SPA 模式）
+        </p>
+    </div>
+    <button
+        class="btn btn-primary btn-lg"
+        hx-get="/todos/create"
+        hx-target="#create-form"
+        hx-swap="innerHTML"
+    >
+        <i class="bi bi-plus-circle me-2"></i>添加新任务
+    </button>
+</div>
+
+<!-- 创建表单容器 -->
+<div id="create-form" class="mb-4"></div>
+
+<!-- 待办列表卡片 -->
+<div class="card shadow-sm">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="bi bi-list-task me-2"></i>任务列表</h5>
+    </div>
+    <div class="card-body p-0">
+        <div id="todo-list" class="list-group list-group-flush">
+            {% if todos.is_empty() %}
+            <div class="list-group-item text-center py-5 text-muted">
+                <i class="bi bi-inbox display-1 d-block mb-3"></i>
+                <p class="mb-0">暂无任务，点击上方按钮添加新任务</p>
+            </div>
+            {% else %} {% for todo in todos %} {% include "todos/item.html" %}
+            {% endfor %} {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- 统计信息 -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-list-ul display-4"></i>
+                <h3 class="mt-2">
+                    <span id="total-count">{{ todos.len() }}</span>
+                </h3>
+                <p class="mb-0">总任务数</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle display-4"></i>
+                <h3 class="mt-2">
+                    <span id="completed-count">{{ completed_count }}</span>
+                </h3>
+                <p class="mb-0">已完成</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-hourglass-split display-4"></i>
+                <h3 class="mt-2">
+                    <span id="pending-count">{{ pending_count }}</span>
+                </h3>
+                <p class="mb-0">待完成</p>
+            </div>
+        </div>
+    </div>
+</div>

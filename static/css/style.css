@@ -1,0 +1,303 @@
+/* ========================================
+   自定义样式 - 与 Bootstrap 5 和 UnoCSS 配合
+   ======================================== */
+
+/* CSS 变量 */
+:root {
+    --primary-color: #3b82f6;
+    --primary-rgb: 59, 130, 246;
+    --transition-speed: 0.3s;
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* SPA 页面切换动画 */
+#main-content {
+    animation: fadeInUp 0.3s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HTMX 交换动画 */
+.htmx-swapping {
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease-out;
+}
+
+.htmx-settling {
+    opacity: 1;
+}
+
+.htmx-added {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 卡片悬停效果 */
+.hover-lift {
+    transition:
+        transform var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.hover-shadow {
+    transition: all var(--transition-speed) ease;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 导航链接活动状态 */
+.nav-link-custom.active {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    font-weight: 600;
+}
+
+/* HTMX 加载指示器 */
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.htmx-request .htmx-indicator {
+    opacity: 1;
+}
+
+/* 渐变背景 */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+/* 头像样式 */
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* 徽章增强 */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* 表单增强 */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-rgb), 0.25);
+}
+
+/* 按钮增强 */
+.btn {
+    transition: all var(--transition-speed) ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* 卡片增强 */
+.card {
+    border: none;
+    transition: all var(--transition-speed) ease;
+}
+
+/* 列表组增强 */
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    transition: all var(--transition-speed) ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+/* 模态框动画 */
+.modal.show {
+    display: block !important;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* 统计卡片 */
+.stat-card {
+    transition: all var(--transition-speed) ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+/* 空状态样式 */
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 5rem;
+    opacity: 0.3;
+}
+
+/* 加载动画 */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .display-6 {
+        font-size: 2rem;
+    }
+
+    #main-content {
+        animation: none;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .navbar,
+    footer,
+    .btn,
+    .modal-backdrop,
+    .modal {
+        display: none !important;
+    }
+}
+
+/* 深色模式支持（如果需要） */
+@media (prefers-color-scheme: dark) {
+    /* 可以在这里添加深色模式样式 */
+}
+
+/* 滚动条样式（Webkit浏览器） */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* UnoCSS 实用类补充 */
+.text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 焦点可见性 */
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* 选择文本颜色 */
+::selection {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+::-moz-selection {
+    background-color: var(--primary-color);
+    color: white;
+}

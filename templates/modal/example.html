@@ -1,0 +1,160 @@
+<!-- Bootstrap 模态框 -->
+<div
+    class="modal fade show d-block"
+    tabindex="-1"
+    style="background-color: rgba(0, 0, 0, 0.5)"
+>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div
+            class="modal-content animate__animated animate__zoomIn animate__faster"
+        >
+            <!-- 模态框头部 -->
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-window me-2"></i>HTMX 模态框示例
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    onclick="document.getElementById('modal-container').innerHTML = ''"
+                    aria-label="Close"
+                ></button>
+            </div>
+
+            <!-- 模态框内容 -->
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="bi bi-rocket-takeoff display-1 text-primary"></i>
+                </div>
+
+                <p class="lead text-center mb-4">
+                    这是一个使用 HTMX 动态加载的 Bootstrap 模态框示例
+                </p>
+
+                <div
+                    class="alert alert-info d-flex align-items-center"
+                    role="alert"
+                >
+                    <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+                    <div>
+                        点击模态框外部、关闭按钮或下方的按钮可以关闭模态框
+                    </div>
+                </div>
+
+                <!-- 功能特性 -->
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="bi bi-star-fill text-warning me-2"></i
+                            >模态框特性
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i
+                                        class="bi bi-check-circle-fill text-success me-2 mt-1"
+                                    ></i>
+                                    <div>
+                                        <strong>动态加载</strong>
+                                        <p class="small text-muted mb-0">
+                                            内容通过 HTMX 异步加载
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i
+                                        class="bi bi-check-circle-fill text-success me-2 mt-1"
+                                    ></i>
+                                    <div>
+                                        <strong>Bootstrap 样式</strong>
+                                        <p class="small text-muted mb-0">
+                                            使用 Bootstrap 5 组件
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i
+                                        class="bi bi-check-circle-fill text-success me-2 mt-1"
+                                    ></i>
+                                    <div>
+                                        <strong>轻量实现</strong>
+                                        <p class="small text-muted mb-0">
+                                            无需 JavaScript 框架
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start">
+                                    <i
+                                        class="bi bi-check-circle-fill text-success me-2 mt-1"
+                                    ></i>
+                                    <div>
+                                        <strong>响应式设计</strong>
+                                        <p class="small text-muted mb-0">
+                                            适配各种屏幕尺寸
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 技术栈 -->
+                <div class="mt-4">
+                    <h6 class="text-muted mb-3">使用的技术：</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-danger fs-6 px-3 py-2">
+                            <i class="bi bi-filetype-html me-1"></i>HTMX
+                        </span>
+                        <span class="badge bg-primary fs-6 px-3 py-2">
+                            <i class="bi bi-bootstrap me-1"></i>Bootstrap 5
+                        </span>
+                        <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                            <i class="bi bi-layers me-1"></i>Askama
+                        </span>
+                        <span class="badge bg-secondary fs-6 px-3 py-2">
+                            <i class="bi bi-gear me-1"></i>Rust + Axum
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="document.getElementById('modal-container').innerHTML = ''"
+                >
+                    <i class="bi bi-x-circle me-1"></i>取消
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="document.getElementById('modal-container').innerHTML = ''"
+                >
+                    <i class="bi bi-check-circle me-1"></i>知道了
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 点击背景关闭模态框
+    document
+        .querySelector(".modal.show")
+        .addEventListener("click", function (e) {
+            if (e.target === this) {
+                document.getElementById("modal-container").innerHTML = "";
+            }
+        });
+</script>

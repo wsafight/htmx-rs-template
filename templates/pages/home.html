@@ -1,0 +1,157 @@
+<!-- 欢迎区域 -->
+<div class="text-center py-5 mb-5">
+    <h1 class="display-4 fw-bold mb-3 animate__animated animate__fadeInDown">
+        <i class="bi bi-rocket-takeoff text-primary"></i>
+        欢迎使用 HTMX + Rust SPA
+    </h1>
+    <p class="lead text-muted mb-4">单页应用体验 + 服务端渲染的强大组合</p>
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <span class="badge bg-primary fs-6 px-3 py-2"
+            ><i class="bi bi-lightning-charge"></i> 快速</span
+        >
+        <span class="badge bg-success fs-6 px-3 py-2"
+            ><i class="bi bi-shield-check"></i> 安全</span
+        >
+        <span class="badge bg-info fs-6 px-3 py-2"
+            ><i class="bi bi-box"></i> 轻量</span
+        >
+        <span class="badge bg-warning text-dark fs-6 px-3 py-2"
+            ><i class="bi bi-stars"></i> 现代化</span
+        >
+    </div>
+</div>
+
+<!-- 功能卡片 -->
+<div class="row g-4 mb-5">
+    <!-- HTMX 卡片 -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm hover-lift">
+            <div class="card-body text-center p-4">
+                <div class="display-1 text-primary mb-3">⚡</div>
+                <h3 class="card-title h4 fw-bold mb-3">HTMX</h3>
+                <p class="card-text text-muted mb-4">
+                    使用 HTML 属性实现 SPA 体验
+                </p>
+                <a
+                    href="/todos"
+                    hx-get="/page/todos"
+                    hx-target="#main-content"
+                    hx-swap="innerHTML swap:300ms"
+                    hx-push-url="/todos"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-check-square me-2"></i>查看待办示例
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rust 卡片 -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm hover-lift">
+            <div class="card-body text-center p-4">
+                <div class="display-1 text-danger mb-3">🦀</div>
+                <h3 class="card-title h4 fw-bold mb-3">Rust</h3>
+                <p class="card-text text-muted mb-4">
+                    使用 Axum 框架构建高性能、类型安全的后端
+                </p>
+                <a
+                    href="/users"
+                    hx-get="/page/users"
+                    hx-target="#main-content"
+                    hx-swap="innerHTML swap:300ms"
+                    hx-push-url="/users"
+                    class="btn btn-danger"
+                >
+                    <i class="bi bi-people me-2"></i>查看用户示例
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 卡片 -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm hover-lift">
+            <div class="card-body text-center p-4">
+                <div class="display-1 text-success mb-3">🎨</div>
+                <h3 class="card-title h4 fw-bold mb-3">Bootstrap</h3>
+                <p class="card-text text-muted mb-4">
+                    现代化的 UI 组件，响应式设计，开箱即用
+                </p>
+                <button
+                    class="btn btn-success"
+                    hx-get="/modal/example"
+                    hx-target="#modal-container"
+                    hx-swap="innerHTML"
+                >
+                    <i class="bi bi-window me-2"></i>查看模态框
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SPA 特性列表 -->
+<div class="row mb-5">
+    <div class="col-lg-6 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-star-fill me-2"></i>SPA 特性
+                </h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>无刷新页面切换</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>URL 历史记录支持（浏览器前进/后退）</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>页面切换动画效果</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>服务端渲染（SEO 友好）</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>实时搜索和 CRUD 操作</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i
+                            class="bi bi-check-circle-fill text-success me-3 fs-5"
+                        ></i>
+                        <span>极少的 JavaScript 代码</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-lift {
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    }
+</style>

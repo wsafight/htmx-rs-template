@@ -1,0 +1,92 @@
+<div class="modal fade show" style="display: block" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-person-circle me-2"></i>用户详情
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <div
+                        class="avatar bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                        style="
+                            width: 80px;
+                            height: 80px;
+                            font-size: 32px;
+                            font-weight: bold;
+                        "
+                    >
+                        {{ user.name.chars().next().unwrap() }}
+                    </div>
+                </div>
+
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <i
+                                class="bi bi-person-fill text-primary me-3 fs-4"
+                            ></i>
+                            <div>
+                                <small class="text-muted d-block">姓名</small>
+                                <strong>{{ user.name }}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <i
+                                class="bi bi-envelope-fill text-primary me-3 fs-4"
+                            ></i>
+                            <div>
+                                <small class="text-muted d-block">邮箱</small>
+                                <strong>{{ user.email }}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-hash text-primary me-3 fs-4"></i>
+                            <div>
+                                <small class="text-muted d-block">用户ID</small>
+                                <strong>#{{ user.id }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop fade show"></div>
+
+<script>
+    // 点击背景关闭模态框
+    document
+        .querySelector(".modal-backdrop")
+        .addEventListener("click", function () {
+            document.getElementById("modal-container").innerHTML = "";
+        });
+
+    // 点击关闭按钮
+    document.querySelectorAll('[data-bs-dismiss="modal"]').forEach((btn) => {
+        btn.addEventListener("click", function () {
+            document.getElementById("modal-container").innerHTML = "";
+        });
+    });
+
+    // ESC 键关闭
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            document.getElementById("modal-container").innerHTML = "";
+        }
+    });
+</script>

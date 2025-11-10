@@ -1,0 +1,139 @@
+<!-- 页面标题 -->
+<div class="mb-4">
+    <h1 class="display-6 fw-bold">
+        <i class="bi bi-people text-primary me-2"></i>用户列表
+    </h1>
+    <p class="text-muted mb-0">使用 HTMX 实现的实时搜索示例（SPA 模式）</p>
+</div>
+
+<!-- 搜索卡片 -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-10">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                        type="text"
+                        name="q"
+                        class="form-control"
+                        placeholder="搜索用户名或邮箱..."
+                        hx-get="/users/search"
+                        hx-trigger="keyup changed delay:300ms"
+                        hx-target="#search-results"
+                        hx-indicator="#loading"
+                    />
+                </div>
+                <div class="form-text">
+                    <i class="bi bi-info-circle me-1"></i>输入关键词即可实时搜索
+                </div>
+            </div>
+            <div class="col-md-2 text-center">
+                <div id="loading" class="htmx-indicator">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">搜索中...</span>
+                    </div>
+                    <div class="small text-muted mt-2">搜索中...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 用户列表 -->
+<div id="search-results">
+    <div class="row g-4">
+        {% for user in users %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm hover-shadow">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                style="
+                                    width: 60px;
+                                    height: 60px;
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                "
+                            >
+                                {{ user.name.chars().next().unwrap() }}
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="card-title mb-1">{{ user.name }}</h5>
+                            <p class="card-text text-muted small mb-0">
+                                <i class="bi bi-envelope me-1"></i>{{ user.email
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <div class="d-flex gap-2">
+                        <button
+                            class="btn btn-sm btn-outline-primary flex-fill"
+                            hx-get="/users/{{ user.id }}/detail"
+                            hx-target="#modal-container"
+                            hx-swap="innerHTML"
+                        >
+                            <i class="bi bi-person-lines-fill"></i> 详情
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 统计卡片 -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-people-fill display-4"></i>
+                <h3 class="mt-2">{{ users.len() }}</h3>
+                <p class="mb-0">总用户数</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-person-check-fill display-4"></i>
+                <h3 class="mt-2">{{ users.len() }}</h3>
+                <p class="mb-0">活跃用户</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body text-center">
+                <i class="bi bi-star-fill display-4"></i>
+                <h3 class="mt-2">100%</h3>
+                <p class="mb-0">满意度</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+    }
+    .htmx-indicator {
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .htmx-request .htmx-indicator {
+        opacity: 1;
+    }
+</style>

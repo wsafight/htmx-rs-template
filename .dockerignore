@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database (开发时的数据库文件)
+*.db
+*.db-shm
+*.db-wal
+
+# Documentation
+README.md
+QUICKSTART.md
+docs/
+
+# CI/CD
+.github/
+
+# 其他
+.env
+.env.*
