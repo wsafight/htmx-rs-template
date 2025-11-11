@@ -45,22 +45,20 @@ pub struct CreateTodoForm {
 /// 使用预编译查询和索引优化性能
 pub async fn get_todos(pool: &SqlitePool) -> Result<Vec<Todo>, sqlx::Error> {
     // 使用预编译查询并利用idx_todos_id_desc索引
-    sqlx::query_as::<_, Todo>(
-        "SELECT id, title, completed FROM todos ORDER BY id DESC"
-    )
-    .fetch_all(pool)
-    .await
+    sqlx::query_as::<_, Todo>("SELECT id, title, completed FROM todos ORDER BY id DESC")
+        .fetch_all(pool)
+        .await
 }
 
 /// 获取统计信息 - 直接通过SQL查询统计数据，避免加载所有记录到内存
 pub async fn get_stats(pool: &SqlitePool) -> Result<TodoStatsTemplate, sqlx::Error> {
     // 使用单个SQL查询获取所有统计数据，避免加载所有记录
     let (total_count, completed_count): (i64, i64) = sqlx::query_as(
-        "SELECT COUNT(*), SUM(CASE WHEN completed = 1 THEN 1 ELSE 0 END) FROM todos"
+        "SELECT COUNT(*), SUM(CASE WHEN completed = 1 THEN 1 ELSE 0 END) FROM todos",
     )
     .fetch_one(pool)
     .await?;
-    
+
     let total_count = total_count as usize;
     let completed_count = completed_count as usize;
     let pending_count = total_count - completed_count;

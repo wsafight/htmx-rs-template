@@ -76,34 +76,30 @@ pub async fn search(
     } else {
         let search_pattern = format!("%{}%", query);
         // 使用子查询避免双重计数，优化搜索统计性能
-        sqlx::query_scalar(
-            "SELECT COUNT(*) FROM users WHERE name LIKE ? OR email LIKE ?"
-        )
-        .bind(&search_pattern)
-        .bind(&search_pattern)
-        .fetch_one(&pool)
-        .await
-        .unwrap_or(0)
+        sqlx::query_scalar("SELECT COUNT(*) FROM users WHERE name LIKE ? OR email LIKE ?")
+            .bind(&search_pattern)
+            .bind(&search_pattern)
+            .fetch_one(&pool)
+            .await
+            .unwrap_or(0)
     };
 
     // 获取分页数据 - 使用索引优化查询性能
     let users = if query.is_empty() {
         // 简单查询使用主键索引
-        sqlx::query_as::<_, User>(
-            "SELECT id, name, email FROM users ORDER BY id LIMIT ? OFFSET ?"
-        )
-        .bind(per_page)
-        .bind(offset)
-        .fetch_all(&pool)
-        .await
-        .unwrap_or_default()
+        sqlx::query_as::<_, User>("SELECT id, name, email FROM users ORDER BY id LIMIT ? OFFSET ?")
+            .bind(per_page)
+            .bind(offset)
+            .fetch_all(&pool)
+            .await
+            .unwrap_or_default()
     } else {
         let search_pattern = format!("%{}%", query);
         // 使用索引优化搜索查询
         sqlx::query_as::<_, User>(
             "SELECT id, name, email FROM users \
              WHERE name LIKE ? OR email LIKE ? \
-             ORDER BY id LIMIT ? OFFSET ?"
+             ORDER BY id LIMIT ? OFFSET ?",
         )
         .bind(&search_pattern)
         .bind(&search_pattern)

@@ -91,17 +91,17 @@ pub async fn create_pool() -> Result<SqlitePool, DbError> {
         .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or(15); // 增加最大连接数以支持更多并发
-    
+
     let min_connections = std::env::var("DB_MIN_CONNECTIONS")
         .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or(3); // 适当增加最小连接数以减少冷启动延迟
-    
+
     let acquire_timeout = std::env::var("DB_ACQUIRE_TIMEOUT")
         .ok()
         .and_then(|s| s.parse().ok())
         .unwrap_or(8); // 增加超时时间以适应高负载情况
-    
+
     let idle_timeout = std::env::var("DB_IDLE_TIMEOUT")
         .ok()
         .and_then(|s| s.parse().ok())
@@ -127,8 +127,10 @@ pub async fn create_pool() -> Result<SqlitePool, DbError> {
         .await?;
 
     tracing::info!(
-        "✅ 数据库连接池创建成功 [最大: {}, 最小: {}, 超时: {}s]", 
-        max_connections, min_connections, acquire_timeout
+        "✅ 数据库连接池创建成功 [最大: {}, 最小: {}, 超时: {}s]",
+        max_connections,
+        min_connections,
+        acquire_timeout
     );
     Ok(pool)
 }

@@ -4,10 +4,10 @@ mod routes;
 mod services;
 
 use axum::{middleware, routing::get, Extension, Router};
-use services::cache_warmup::{start_cache_refresh_task, warmup_all_caches};
-use helpers::config::{CONFIG};
+use helpers::config::CONFIG;
 use helpers::monitoring::{create_monitoring_routes, init_metrics, AppState};
 use helpers::security::sanitize_log_message;
+use services::cache_warmup::{start_cache_refresh_task, warmup_all_caches};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::signal;
@@ -65,13 +65,16 @@ async fn main() {
     }
 
     tracing::info!("✅ 数据库初始化完成");
-    
+
     // 执行缓存预热
     tracing::info!("🔥 开始缓存预热...");
     if let Err(e) = warmup_all_caches(&pool).await {
-        tracing::warn!("⚠️  缓存预热部分失败: {}", sanitize_log_message(&e.to_string()));
+        tracing::warn!(
+            "⚠️  缓存预热部分失败: {}",
+            sanitize_log_message(&e.to_string())
+        );
     }
-    
+
     // 启动定期缓存刷新任务（非阻塞）
     let pool_clone = pool.clone();
     tokio::spawn(async move {
@@ -181,10 +184,7 @@ async fn main() {
         .await
     {
         Ok(_) => tracing::info!("✅ 服务器已正常关闭"),
-        Err(e) => tracing::error!(
-            "❌ 服务器错误: {}",
-            sanitize_log_message(&e.to_string())
-        ),
+        Err(e) => tracing::error!("❌ 服务器错误: {}", sanitize_log_message(&e.to_string())),
     }
 }
 
