@@ -50,7 +50,6 @@ htmx-rs-template/
 ├── .gitignore              # Git 忽略文件
 ├── README.md               # 项目文档
 ├── QUICKSTART.md           # 快速入门指南
-├── BOOTSTRAP_UNOCSS_GUIDE.md # Bootstrap + UnoCSS 集成指南
 ├── CHEATSHEET.md           # HTMX 速查表
 └── PROJECT_STRUCTURE.md    # 本文件
 ```
@@ -267,7 +266,6 @@ sqlx::query_as::<_, User>(
 - HTML 文档结构
 - Bootstrap 5.3 CSS/JS
 - HTMX 2.0 CDN
-- UnoCSS CDN
 - 自定义样式表
 - 导航栏（带 SPA 路由）
 - 页脚
@@ -802,7 +800,6 @@ services:
 - **SQLx**: https://docs.rs/sqlx/latest/sqlx/
 - **Tokio**: https://tokio.rs/tokio/tutorial
 - **Bootstrap 5**: https://getbootstrap.com/docs/5.3/
-- **UnoCSS**: https://unocss.dev/
 
 ## 🎯 最佳实践
 

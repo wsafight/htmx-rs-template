@@ -6,7 +6,7 @@
 
 - **后端**: Rust + Axum (异步 Web 框架)
 - **模板引擎**: Askama (编译时类型安全模板)
-- **前端**: HTMX 2.0 + Bootstrap 5.3 + UnoCSS
+- **前端**: HTMX 2.0 + Bootstrap 5.3
 - **数据库**: SQLite + SQLx (编译时 SQL 验证)
 - **静态资源**: rust-embed (编译时嵌入)
 - **日志**: tracing + tracing-subscriber
@@ -253,7 +253,6 @@ cargo run
 
 - [项目结构详解](PROJECT_STRUCTURE.md)
 - [快速入门指南](QUICKSTART.md)
-- [Bootstrap + UnoCSS 集成指南](BOOTSTRAP_UNOCSS_GUIDE.md)
 - [HTMX 速查表](CHEATSHEET.md)
 
 ## License

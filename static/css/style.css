@@ -1,5 +1,5 @@
 /* ========================================
-   自定义样式 - 与 Bootstrap 5 和 UnoCSS 配合
+   自定义样式 - 与 Bootstrap 5 配合
    ======================================== */
 
 /* CSS 变量 */
@@ -277,7 +277,7 @@ html {
     background: #555;
 }
 
-/* UnoCSS 实用类补充 */
+/* 自定义实用类 */
 .text-gradient {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
